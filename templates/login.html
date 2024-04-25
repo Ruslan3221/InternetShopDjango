@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Логин{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card" style="width: 30rem">
+      <div class="card-header">
+        Login
+      </div>
+      <div class="card-body">
+        <form method="post">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" name="username" id="floatingInput" placeholder="name@example.com">
+              <label for="floatingInput">Name</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Password">
+              <label for="floatingPassword">Password</label>
+            </div>
+            <div>
+                {% csrf_token %}
+                <button class="btn btn-primary mt-3" type="submit">Submit form</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}

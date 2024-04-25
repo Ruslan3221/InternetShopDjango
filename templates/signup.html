@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+<h2>Sign Up</h2>
+
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card" style="margin-right: 2rem; padding:1rem; ">
+        <ul><li>Пароль не должен быть слишком похож на другую вашу личную информацию.</li>
+            <li>Ваш пароль должен содержать как минимум 8 символов.</li>
+            <li>Пароль не должен быть слишком простым и распространенным.</li>
+            <li>Пароль не может состоять только из цифр.</li>
+        </ul>
+    </div>
+    
+    <div class="card" style="width: 30rem">
+      <div class="card-header">
+        SignUp
+      </div>
+      <div class="card-body">
+        <form method="post">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" name="username" id="floatingInput" placeholder="name@example.com">
+              <label for="floatingInput">Name</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" name="password1" id="floatingPassword" placeholder="Password">
+              <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-floating mt-3">
+              <input type="password" class="form-control" name="password2" id="floatingPassword" placeholder="Password">
+              <label for="floatingPassword">Password2</label>
+            </div>
+            <div>
+                {% csrf_token %}
+                <button class="btn btn-primary mt-3" type="submit">Sign Up</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}
+

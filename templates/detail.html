@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+        <div class="mt-3">
+        <div class="mt-3">
+            <div>
+                <!--col-->
+                <div class="container mt-3 m-lg-1">
+                  <div class="row m-lg-1">
+                    <div class="col">
+                       <div class="card" style="width: 32rem;">
+                          <img src="{{ product.images.first.product_images.url }}" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <p>{{ product.name }}</p>
+                        <p>{{ product.price }}</p>
+                    </div>
+                  </div>
+                </div>
+                <!--endcol-->
+                <br>
+                <button onclick="more()" type="button" class="btn btn-outline-success" id="more" style="margin-left: 30px;">Еще</button>
+            </div>
+
+
+            <div id="overlay-details-item">
+                <div class="overlay-details">
+                    <div class="container"></div>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            {% for image in product_images %}
+                            <div class="col">
+                                <img class="img-container-detail" src="{{ image.product_images.url }}" height="300" width="300">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}    
