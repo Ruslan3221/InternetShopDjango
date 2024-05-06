@@ -2,7 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from .decorator_permission import *
-from .models import Cart, CartItem, Product
+from .models import Cart, CartItem, Product,Message,Subscriber
 
 
 #Корзина и кабинет
@@ -17,7 +17,6 @@ class Cabinet:
 
     #вид корзины
     def cart_items(self):
-        print(f"cart_items === {self.cart.items.all()} = {self.cart}")
         for item in self.cart.items.all():
 
             self.count_products = len(self.products_in_cart)+1
@@ -48,21 +47,34 @@ class Cabinet:
             self.products_in_cart.append(product_context)
         return self.products_in_cart
 
+    def views_sub(self):
+        subscribe = Subscriber.objects.filter(user=self.user)
+        return subscribe
+
+
+    def message(self):
+        self.message = Message.objects.all().filter(user = self.user)
+        return self.message
+    #Метод запуска
     def cabinet_start(self):
         products_in_cart = self.cart_items()
+
+        message = self.message()
+
+        subscribe = self.views_sub()
 
         self.context = {
             'products_in_cart': products_in_cart,
             'user': self.user,
+            'message': message,
             'cart': self.cart,
+            'subscribe':subscribe
         }
 
-        print(f"{self.context['products_in_cart']}===")
         return render(self.request, 'cabinet.html', self.context)
 
     #Удаление из корзины
     def delete_from_cart(self, request, cart_id):
-        #request = self.request
         self.cart = get_object_or_404(CartItem, pk=cart_id)
         self.cart.delete()
         return redirect(reverse("shop:cabinet", args=[self.username]))
@@ -71,8 +83,6 @@ class Cabinet:
 
 @auth_and_user
 def cabinet_views(request, username):
-    #global cabinet_class
-
     cabinet_class = Cabinet(request, username)
     return cabinet_class.cabinet_start()
 
@@ -80,8 +90,6 @@ def cabinet_views(request, username):
 #Удаляет из корзины
 @auth_and_user
 def delete_from_cabinet_cart(request, username, cart_id):
-    print(f"==={cart_id}===")
-
     cabinet_class = Cabinet(request, username)
     return cabinet_class.delete_from_cart(request, cart_id)
 

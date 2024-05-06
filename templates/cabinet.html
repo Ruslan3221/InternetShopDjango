@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+{% extends 'base.html' %}
 {% block title %}Кабинет{% endblock %}
 {% block content %}
 
@@ -7,12 +7,59 @@
     <div class="card-body text-dark">
     <h5 class="card-title">{{ user.username }}</h5>
     <p class="card-text"></p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">title</th>
+              <th scope="col">text</th>
+              <th scope="col">read</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for mess in message %}
+                <tr>
+                    
+                  <th scope="row">#</th>
+                  <td>{{ mess.title }}</td>
+                  <td>{{ mess.text|truncatechars:10 }}</td>
+                  <td><i class="fa-solid fa-check"></i></td>  
+
+                </tr>
+            {% endfor %}  
+            
+          </tbody>
+        </table>
     </div>
 </div>
 <div class="card border-dark mb-3 shadow-lg" style="max-width: 100rem; margin-left: 8rem; height:50rem;">
     <div class="card-header" style="text-align: center">Подписки</div>
     <div class="card-body text-dark">
     <h5 class="card-title"></h5>
+    
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Product</th>
+              <th scope="col">price</th>
+              <th scope="col">delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sub in subscribe %}
+                <tr>
+                    
+                  <th scope="row">#</th>
+                  <td>{{ sub.product.name }}</td>
+                  <td>{{ sub.product.price }}</td>
+                  <td><a type="button" class="btn btn-danger" href="{% url 'shop:unsubscribe_product' sub.product.id %}"><i class="fa-solid fa-minus"></i></a></td>  
+
+                </tr>
+            {% endfor %}  
+            
+          </tbody>
+        </table>
     <p class="card-text"></p>
     </div>
 </div>
