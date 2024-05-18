@@ -4,15 +4,12 @@
  <!-- template.html -->
 <form method="post" enctype="multipart/form-data" id="product_form">
     {% csrf_token %}
-    <!-- Форма для основной информации о товаре -->
     {{ product_form.as_p }}
 
-    <!-- Контейнер для полей загрузки изображений -->
     <div id="images_container">
-        {{ product_image_form.images }}
+        <input type="file" name="product_images" accept="image/*" multiple>
     </div>
-    
-    <!-- Кнопка для добавления нового поля загрузки изображения -->
+
     <button type="button" id="add_image_field">Добавить еще одно изображение</button>
 
     <input type="submit" value="Добавить товар">
@@ -23,14 +20,11 @@ document.addEventListener("DOMContentLoaded", function() {
     var imagesContainer = document.getElementById("images_container");
     var addButton = document.getElementById("add_image_field");
     addButton.addEventListener("click", function() {
-        // Создаем новое поле для загрузки изображения
         var newInput = document.createElement("input");
         newInput.type = "file";
-        newInput.name = "images";
+        newInput.name = "product_images";
         newInput.accept = "image/*";
         newInput.multiple = true;
-
-        // Добавляем новое поле в контейнер
         imagesContainer.appendChild(newInput);
     });
 });
