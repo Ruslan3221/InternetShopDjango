@@ -36,3 +36,56 @@ function more(){
   }
 
 }
+
+function test(){
+    alert("test")
+  };
+
+
+function alread(){
+    var divElement = document.getElementById('img-conteiner');
+
+    var imgTags = divElement.getElementsByTagName('img');
+
+
+    for (var i =0;i< imgTags.length;i++){
+
+
+    var a = window.getComputedStyle(imgTags[i]).getPropertyValue('display');
+
+    if (a == 'block'){
+        return parseInt(i);
+    }
+}
+
+
+}
+
+function photo(){
+    var divEl = document.getElementById('img-conteiner');
+
+    var imgtag = divEl.getElementsByTagName("img");
+
+
+
+    var imglen = imgtag.length;
+
+    var just_block = alread()
+
+
+    if (just_block == imglen-1){
+        var just = imgtag[0];
+        just.style.display = 'block';
+        imgtag[just_block].style.display = 'none';
+
+    }
+    else{
+        imgtag[just_block].style.display = 'none';
+        imgtag[just_block+1].style.display = 'block';
+
+    }
+
+
+
+}
+

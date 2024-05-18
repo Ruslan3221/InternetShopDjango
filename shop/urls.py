@@ -14,6 +14,8 @@ urlpatterns = [
 
     path('cabinet/<str:username>/', views_cabinet.cabinet_views, name='cabinet'),
 
+    path('create_order_cart/<str:username/', views_cabinet.create_order_card, name='create_order_cart'),
+
 
     path('delete_cartItem/<str:username>/<int:cart_id>/', views_cabinet.delete_from_cabinet_cart, name='delete_cartItem'),
 

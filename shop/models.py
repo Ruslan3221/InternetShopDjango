@@ -65,11 +65,46 @@ class Cart(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def create_order(self):
+        order = Order.objects.create(user=self.user, total_price= 0.00)
+        total_price = 0.00
+        for item in self.items.all():
+            order_item = OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.product.price
+            )
+            total_price += order_item.price * order_item.quantity
+
+        order.total_price = total_price
+        order.save()
+        self.items.all().delete()
+        return order
+
+
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
+
+class Order(models.Model):
+    create = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2,default=0.00)
+
+    def __str__(self):
+        return f' Заказ-{self.id}.От {self.user}'
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order,related_name='items',on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.quantity}-{self.product.name}"
 
 
 

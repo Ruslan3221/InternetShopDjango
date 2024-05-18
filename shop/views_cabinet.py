@@ -2,7 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from .decorator_permission import *
-from .models import Cart, CartItem, Product,Message,Subscriber
+from .models import Cart, CartItem, Product,Message,Subscriber,Order,OrderItem
 
 
 #Корзина и кабинет
@@ -79,6 +79,13 @@ class Cabinet:
         self.cart.delete()
         return redirect(reverse("shop:cabinet", args=[self.username]))
 
+    def create_Order(self,username):
+        cart = Cart.objects.get(username)
+        cart.create_order()
+
+        return redirect(reverse("shop:cabinet", args=[self.username]))
+
+
 
 
 @auth_and_user
@@ -92,4 +99,9 @@ def cabinet_views(request, username):
 def delete_from_cabinet_cart(request, username, cart_id):
     cabinet_class = Cabinet(request, username)
     return cabinet_class.delete_from_cart(request, cart_id)
+
+@auth_and_user
+def create_order_card(request,username):
+    cabinet = Cabinet(request,username)
+    return cabinet.create_Order(username)
 
