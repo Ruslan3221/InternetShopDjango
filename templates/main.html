@@ -20,7 +20,7 @@
 
             {% for item in products %}
             <div class="col">
-                <div class="card border-dark shadow p-3 mb-5 bg-body rounded">
+                <div class="card border-dark p-3 mb-5 bg-body rounded">
                 <div class="image-container">
                     <img src="{{ item.images.first.product_images.url }}" alt="Product" class="image" id="animatedImage" height="400" width="400">
                     <div class="overlay" id="overlay">
@@ -32,9 +32,16 @@
                         
                     </div>
                     </div>
-                    <div style="text-align: center;">
-                      <p>{{ item.name }}</p>
-                      <p>{{ item.price }}&#8376; </p>
+                    <div style="text-align: center;" class="row">
+                        <hr>
+                        <div class="col" style="text-align:left;">
+                            <p class="text-product-Vibes">{{ item.name }}</p>
+                            <p>Описание...</p>
+                        </div>
+                        <div class="col" style="text-align:right;">
+                            <p class="price">{{ item.price }}&#8376;</p>
+                        </div>
+
                     </div>
                 </div>
             </div>
