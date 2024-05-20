@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Jacquard+24&family=Poetsen+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&family=Jacquard+24&family=Poetsen+One&display=swap');
+
+.text{
+    color:black;
+    font-size:25px;
+    font-family: "Great Vibes", cursive;
+}
+
 .center{
     text-align: center;
 }

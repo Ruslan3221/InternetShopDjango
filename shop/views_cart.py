@@ -6,6 +6,7 @@ from django.urls import reverse
 from .models import Cart, CartItem, Product
 #TODO:Сделать форму заполнения при кидание товара в
 
+@auth_and_user
 def add_to_cart(request, product_id):
     user = request.user
     cart, created = Cart.objects.get_or_create(user=user)

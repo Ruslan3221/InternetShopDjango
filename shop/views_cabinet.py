@@ -55,6 +55,8 @@ class Cabinet:
     def message(self):
         self.message = Message.objects.all().filter(user = self.user)
         return self.message
+
+
     #Метод запуска
     def cabinet_start(self):
         products_in_cart = self.cart_items()

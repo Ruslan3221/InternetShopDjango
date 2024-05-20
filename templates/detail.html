@@ -1,61 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}{{ product.name }}{% endblock %}
 {% block content %}
-        <div class="mt-3">
-        <div class="mt-3">
-            <div>
-                <!--col-->
-                <!--
-                <div class="container mt-3 m-lg-1">
-                  <div class="row m-lg-1">
-                    <div class="col">
-                       <div class="card" style="width: 32rem;">
-                          <img src="{{ product.images.first.product_images.url }}" class="card-img-top" alt="...">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <p>{{ product.name }}</p>
-                        <p>{{ product.price }}</p>
-                    </div>
-                  </div>
-                </div>
-
-                test
-                <div class="card" style="width: 18rem;">
-                  <img src="{{ product.images.first.product_images.url }}" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a class="btn btn-primary m-3" href='{% url "shop:subscribe_product" product.id %}' type="button">Подписаться</a>
-
-                  </div>
-                </div>-->
-
-
-                <div id="img-conteiner">
-                    {% for image in product_images %}
-                        <img class="img-container-detail" src="{{ image.product_images.url }}" height="300" width="300" style="display:none;">
-                    {% endfor %}
-                </div>
-                <button onclick="photo()">Next</button>
-
-                <!--endcol-->
-                <button onclick="more()" type="button" class="btn btn-outline-success" id="more" style="margin-left: 30px;">Еще</button>
-            </div>
-            <a class="btn btn-primary m-3" href='{% url "shop:subscribe_product" product.id %}' type="button">Подписаться</a>
-            <div id="overlay-details-item">
-                <div class="overlay-details">
-                    <div class="container"></div>
-                        <div class="row row-cols-1 row-cols-md-3 g-4">
-                            {% for image in product_images %}
-                            <div class="col">
-                                <img class="img-container-detail" src="{{ image.product_images.url }}" height="300" width="300">
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div>
+    {% for image in product_images %}
+        <div class="col">
+            <img class="img-container-detail" src="{{ image.product_images.url }}" height="300" width="300">
         </div>
+    {% endfor %}
     </div>
-    
+<a class="btn btn-primary m-3" href='{% url "shop:subscribe_product" product.id %}' type="button">Подписаться</a>
+<script>
+</script>
 {% endblock %}    
