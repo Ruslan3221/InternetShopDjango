@@ -13,7 +13,6 @@
             <p class="text">Ваш стиль - наша сумка: непревзойденное качество и безупречный стиль,<br> создавайте историю моды вместе с нами!</p>
         </div>
     </div>
-
     <!--Items-->
     <div class="container" id="shop" style="margin-top: 50px;">
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -23,12 +22,13 @@
                 <div class="card border-dark p-3 mb-5 bg-body rounded">
                 <div class="image-container">
                     <img src="{{ item.images.first.product_images.url }}" alt="Product" class="image" id="animatedImage" height="400" width="400">
-                    <div class="overlay" id="overlay">
+                    <div class="overlay" style="margin-left:25px;" id="overlay">
                         
 
                         <a type="button" class="btn btn-light" id="button1" href="{% url 'shop:detail' item.id %}">Детально</a>
-                        <a type="button" class="btn btn-light mt-1" id="button2" href="{% url 'shop:add_to_cart' user.username item.id %}">В корзину</a>
-
+                        {% if user.is_authenticated %}
+                            <a type="button" class="btn btn-light mt-1"  id="button2" href="{% url 'shop:add_to_cart' user.username item.id %}">В корзину</a>
+                        {% endif %}
                         
                     </div>
                     </div>

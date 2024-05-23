@@ -3,11 +3,19 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 
+from .models import Cart
+
+from .forms import SignUpFrom
+
+
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpFrom(request.POST)#UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+
+            Cart.objects.create(user=user)
+
             auth_login(request, user)
             return redirect('shop:main')  # Перенаправьте пользователя на главную страницу
     else:
