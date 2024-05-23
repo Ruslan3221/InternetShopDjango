@@ -3,6 +3,9 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from .decorator_permission import *
 from .models import Cart, CartItem, Product,Message,Subscriber,Order,OrderItem
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 #Корзина и кабинет
@@ -53,7 +56,7 @@ class Cabinet:
 
 
     def message(self):
-        self.message = Message.objects.all().filter(user = self.user)
+        self.message = Message.objects.all().filter(user=self.user)
         return self.message
 
 
@@ -81,11 +84,13 @@ class Cabinet:
         self.cart.delete()
         return redirect(reverse("shop:cabinet", args=[self.username]))
 
-    def create_Order(self,username):
-        cart = Cart.objects.get(username)
+    def create_Order(self, username):
+        logger.debug(f"Creating order for username: {username}")
+        print("ok")
+        user = get_object_or_404(User, username=username)
+        cart = get_object_or_404(Cart, user=user)
         cart.create_order()
-
-        return redirect(reverse("shop:cabinet", args=[self.username]))
+        return redirect(reverse("shop:cabinet", args=[username]))
 
 
 
@@ -104,6 +109,7 @@ def delete_from_cabinet_cart(request, username, cart_id):
 
 @auth_and_user
 def create_order_card(request,username):
+    print("Create_order_card")
     cabinet = Cabinet(request,username)
     return cabinet.create_Order(username)
 

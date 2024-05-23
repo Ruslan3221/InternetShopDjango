@@ -27,7 +27,7 @@
                         
 
                         <a type="button" class="btn btn-light" id="button1" href="{% url 'shop:detail' item.id %}">Детально</a>
-                        <a type="button" class="btn btn-light mt-1" id="button2" href="{% url 'shop:add_to_cart' item.id %}">В корзину</a>
+                        <a type="button" class="btn btn-light mt-1" id="button2" href="{% url 'shop:add_to_cart' user.username item.id %}">В корзину</a>
 
                         
                     </div>

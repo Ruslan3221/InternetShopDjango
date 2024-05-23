@@ -20,7 +20,6 @@ def detail(request, pk):
 
     return render(request, 'detail.html', {'product': product, 'product_images': product_images})
 
-#TODO:Незнаю почему но изображение не добавляются
 @admin_only
 def add_product(request):
     if request.method == 'POST':

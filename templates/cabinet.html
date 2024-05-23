@@ -87,7 +87,7 @@
                   <td><a type="button" class="btn btn-danger" href="{% url 'shop:delete_cartItem' username=user.username cart_id=item.id_cart %}"><i class="fa-solid fa-minus"></i></a></td>  
                 </tr>
             {% endfor %}
-            <a href = '{% url "shop:create_order_cart" %}' type="button" class="btn btn-dark">Заказать</a>
+            <a href = '{% url "shop:create_order_cart" user.username %}' type="button" class="btn btn-dark">Заказать</a>
             
           </tbody>
         </table>

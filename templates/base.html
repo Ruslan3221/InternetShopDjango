@@ -47,7 +47,8 @@
             <div class="d-grid gap-2">
                 <a class="btn btn-outline-dark" type="button" href="{% url 'shop:cabinet' user.username %}">Кабинет</a>
                 {% if user.is_superuser %}
-                <a class="btn btn-outline-dark" type="button" href="{% url 'shop:add_product' %}">Пополнить товары</a>
+                    <a class="btn btn-outline-dark" type="button" href="{% url 'shop:add_product' %}">Пополнить товары</a>
+                    <a class="btn btn-outline-dark" type="button" href="{% url 'shop:order' %}">Заказы</a>
                 {% endif %}
                 <a class="btn btn-danger" type="button" href="{% url 'shop:logout' %}">Выход</a>
             </div>

@@ -1,3 +1,4 @@
+import decimal
 import os
 
 from django.db import models
@@ -67,7 +68,7 @@ class Cart(models.Model):
 
     def create_order(self):
         order = Order.objects.create(user=self.user, total_price= 0.00)
-        total_price = 0.00
+        total_price = decimal.Decimal(0.00)
         for item in self.items.all():
             order_item = OrderItem.objects.create(
                 order=order,
@@ -75,7 +76,14 @@ class Cart(models.Model):
                 quantity=item.quantity,
                 price=item.product.price
             )
-            total_price += order_item.price * order_item.quantity
+            print("сдесь ошибка create_order",type(order_item.quantity),type(order_item.price))
+
+            price = decimal.Decimal(order_item.price)
+            quantity = decimal.Decimal(order_item.quantity)
+
+            print(type(total_price))
+
+            total_price += price*quantity
 
         order.total_price = total_price
         order.save()
