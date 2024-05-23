@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Главная{% endblock %}
+{% block title %}Заказы{% endblock %}
 {% block content %}
 
-{% for item in order %}
-    <h2>{{ item.user }}</h2>
 
-{% endfor %}
-
+<div class="container mt-3">
+    <h2 class="text-h" style="text-align:center;">Заказы</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+    {% for item in order %}
+        <div class="col">
+            <div class="card border-dark p-3 mb-5 bg-body rounded" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title" style="text-align:center;">Заказ от: {{ item.user }}</h5>
+                  <div class="d-grid gap-2">
+                      <a class="btn btn-outline-dark" type="button" href="#"><i class="fa-solid fa-info"></i></a>
+                  </div>
+              </div>
+            </div>
+       </div>
+    {% endfor %}
+    </div>
+</div>
 {% endblock %}

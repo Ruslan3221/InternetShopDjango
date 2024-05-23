@@ -13,7 +13,11 @@
         </div>
     </div>
     </div>
-<a class="btn btn-primary m-3" href='{% url "shop:subscribe_product" product.id %}' type="button">Подписаться</a>
+<a class="btn btn-primary m-3" href='{% url "shop:subscribe_product" product.id user.username %}' type="button">Подписаться</a>
+<a class="btn btn-primary m-3" href='{% url "shop:delete_product" product.id%}' type="button">Удалить</a>
+<a class="btn btn-primary m-3" href='{% url "shop:edit_product" product.id%}' type="button">Редактировать</a>
+
+
 <script>
 </script>
 {% endblock %}    

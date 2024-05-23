@@ -12,6 +12,13 @@ urlpatterns = [
 
     path('add_product/', views.add_product, name='add_product'),
 
+    path('delete_product/<int:product_id>/',views.delete_product, name='delete_product'),
+
+
+    path('edit_product/<int:product_id>/',views.edit_product,name='edit_product'),
+
+
+    path('admin_panel/',views.admin_panel,name='admin_panel'),
 
 
     path('cabinet/<str:username>/', views_cabinet.cabinet_views, name='cabinet'),
@@ -24,9 +31,9 @@ urlpatterns = [
     path('delete_cartItem/<str:username>/<int:cart_id>/', views_cabinet.delete_from_cabinet_cart, name='delete_cartItem'),
 
 
-    path('subscribe_product/<int:pk>/', views.subscribe_product, name='subscribe_product'),
+    path('subscribe_product/<int:pk>/<str:username>/', views.subscribe_product, name='subscribe_product'),
 
-    path('unsubscribe_product/<int:pk>/', views.unsubscribe_product, name='unsubscribe_product'),
+    path('unsubscribe_product/<int:pk>/<str:username>/', views.unsubscribe_product, name='unsubscribe_product'),
 
 
     path('add_to_cart/<str:username>/<int:product_id>/', views_cart.add_to_cart, name='add_to_cart'),

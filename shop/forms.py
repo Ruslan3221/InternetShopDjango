@@ -27,3 +27,4 @@ class SignUpFrom(UserCreationForm):
     def clean_username(self):
         username = self.cleaned_data.get('username')
         return username.lower()
+

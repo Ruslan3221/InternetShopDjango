@@ -6,9 +6,8 @@ from shop.forms import ProductForm, ProductImageForm
 from shop.models import Product,ProductImage
 
 
-from .decorator_permission import admin_only
+from .decorator_permission import *
 
-# Create your views here.
 def main(request):
     products = Product.objects.all()
     return render(request, 'main.html', {'products': products})
@@ -35,13 +34,52 @@ def add_product(request):
         image_form = ProductImageForm()
     return render(request, 'forms/addProductForm.html', {'product_form': product_form, 'image_form': image_form})
 
+
+
+#удаление
+@admin_only
+def delete_product(request,product_id):
+    product = Product.objects.get(pk=product_id)
+
+    product.delete()
+    return redirect("shop:main")
+
+
+#TODO:Сделать редактирование изображение
+@admin_only
+def edit_product(request,product_id):
+    product = get_object_or_404(Product,pk=product_id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST,instance=product)
+
+        if form.is_valid():
+            form.save()
+            return redirect('shop:main')
+    else:
+        form = ProductForm(instance=product)
+    return render(request,'./product_edit.html',{'form':form})
+
+
 #Подписка
-def subscribe_product(request,pk):
+@auth_and_user
+def subscribe_product(request,pk,username):
     product = Product.objects.get(pk=pk)
     product.subscribe(request.user)
     return redirect(reverse("shop:cabinet", args=[request.user.username]))
 
-def unsubscribe_product(request,pk):
+@auth_and_user
+def unsubscribe_product(request,pk,username):
     product = Product.objects.get(pk=pk)
     product.unsubscribe(request.user)
     return redirect(reverse("shop:cabinet", args=[request.user.username]))
+
+
+
+#Админ панель
+@admin_only
+def admin_panel(request):
+    context = {
+        "context":1
+    }
+
+    return render(request, "./adminPanel.html",context)

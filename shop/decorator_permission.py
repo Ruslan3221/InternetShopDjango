@@ -9,6 +9,7 @@ def auth_and_user(view_func):
         if not request.user.is_authenticated:
             return redirect("shop:login")
         url_username = kwargs.get('username')
+
         if url_username != request.user.username:
             return redirect("shop:main")
         return view_func(request, *args, **kwargs)
