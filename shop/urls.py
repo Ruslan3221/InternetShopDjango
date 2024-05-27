@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views, views_cart
 from . import views_auth
-from . import views_cabinet
+from . import views_cabinet,views_users
 
 
 app_name = 'shop'
@@ -16,6 +16,9 @@ urlpatterns = [
 
 
     path('edit_product/<int:product_id>/',views.edit_product,name='edit_product'),
+
+
+    path('users/',views_users.users,name='users'),
 
 
     path('admin_panel/',views.admin_panel,name='admin_panel'),

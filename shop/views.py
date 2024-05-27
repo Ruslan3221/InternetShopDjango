@@ -2,7 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import DetailView
 
-from shop.forms import ProductForm, ProductImageForm
+from .bot import *
+
+
+from shop.forms import ProductForm, ProductImageForm,ProductImageFormSet
 from shop.models import Product,ProductImage
 
 
@@ -47,18 +50,33 @@ def delete_product(request,product_id):
 
 #TODO:Сделать редактирование изображение
 @admin_only
-def edit_product(request,product_id):
-    product = get_object_or_404(Product,pk=product_id)
-    if request.method == 'POST':
-        form = ProductForm(request.POST,instance=product)
+def edit_product(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    product_images = ProductImage.objects.all()
+    print(product_images, "formset")
 
-        if form.is_valid():
-            form.save()
+    print(product.name,":product")
+    if request.method == 'POST':
+        product_form = ProductForm(request.POST, instance=product)
+        image_formset = ProductImageFormSet(request.POST, request.FILES, instance=product)
+        if product_form.is_valid() and image_formset.is_valid():
+            product_form.save()
+            image_formset.save()
+
+            send_message_to_user(954677875,f"Товар {product.name} обновился!")
+
             return redirect('shop:main')
     else:
-        form = ProductForm(instance=product)
-    return render(request,'./product_edit.html',{'form':form})
+        product_form = ProductForm(instance=product)
+        image_formset = ProductImageFormSet(instance=product)
 
+    context = {
+        'product_form': product_form,
+        'image_formset': image_formset,
+        "name":product.name,
+        "price":product.price,
+    }
+    return render(request, 'product_edit.html', context)
 
 #Подписка
 @auth_and_user

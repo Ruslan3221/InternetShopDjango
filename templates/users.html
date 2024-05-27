@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Пользователи{% endblock %}
+{% block content %}
+
+<h2 class="text-h" style="text-align:center">Все пользователи</h2>
+<table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">name</th>
+              <th scope="col">Personal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in all %}
+                <tr>
+
+                  <th scope="row">{{ user.id }}</th>
+                    {% if user.name == you %}
+                        <td style="color:red;">{{ user.name }}</td>
+
+                    {% else %}
+                        <td>{{ user.name }}</td>
+
+                    {% endif %}
+
+                    {% if user.personal %}
+                        <td><i class="fa-solid fa-check"></i></td>
+                    <!--<i class="fa-solid fa-check"></i>
+                    <i class="fa-solid fa-x"></i>-->
+                    {% else %}
+                        <td><i class="fa-solid fa-x"></i></td>
+                    {% endif %}
+
+
+                </tr>
+            {% endfor %}
+
+          </tbody>
+</table>
+
+{% endblock %}
+

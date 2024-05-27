@@ -46,14 +46,12 @@
         <div class="offcanvas-body">
             {% if user.username %}
                 <div class="d-grid gap-2">
-                <a class="btn btn-outline-dark" type="button" href="{% url 'shop:cabinet' user.username %}">Кабинет</a>
+                <a class="btn btn-outline-dark" type="button" href="{% url 'shop:cabinet' user.username %}"><i class="fa-solid fa-house"></i> Кабинет</a>
                 {% if user.is_superuser %}
-                    <a class="btn btn-outline-dark" type="button" href="{% url 'shop:add_product' %}">Пополнить товары</a>
-                    <a class="btn btn-outline-dark" type="button" href="{% url 'shop:order' %}">Заказы</a>
-                    <a class="btn btn-outline-dark" type="button" href="{% url 'shop:admin_panel' %}">Админ панель</a>
+                    <a class="btn btn-outline-dark" type="button" href="{% url 'shop:admin_panel' %}"><i class="fa-solid fa-hammer"></i> Админ панель</a>
 
                 {% endif %}
-                <a class="btn btn-danger" type="button" href="{% url 'shop:logout' %}">Выход</a>
+                <a class="btn btn-outline-danger" type="button" href="{% url 'shop:logout' %}"><i class="fa-solid fa-door-open"></i> Выход</a>
             </div>
             {% endif %}
         </div>

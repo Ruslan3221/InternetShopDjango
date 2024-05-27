@@ -12,11 +12,24 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = '__all__'
 
-class ProductImageForm(forms.Form):
+class ProductImageForm(forms.ModelForm):
     #images = MultiFileField(min_num=1, max_num=10, max_file_size=1024*1024*5)
     class Meta:
         model = ProductImage
         fields = ['product_images']
+
+
+
+ProductImageFormSet = forms.inlineformset_factory(
+    Product,
+    ProductImage,
+    form=ProductImageForm,
+    extra=1,
+    can_delete=True,
+    max_num=10,
+)
+
+
 
 
 class SignUpFrom(UserCreationForm):

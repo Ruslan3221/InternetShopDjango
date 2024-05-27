@@ -1,19 +1,31 @@
 {% extends 'base.html' %}
 {% block title %}Добавить товар{% endblock %}
 {% block content %}
- <!-- template.html -->
-<form method="post" enctype="multipart/form-data" id="product_form">
-    {% csrf_token %}
-    {{ product_form.as_p }}
+<h2 class="text-h" style="text-align:center; margin-top:20px;">Пополнение товара</h2>
 
-    <div id="images_container">
-        <input type="file" name="product_images" accept="image/*" multiple>
-    </div>
+<div class="container card shadow p-3 mb-5 bg-body rounded" style="margin-top:40px;">
+    <form method="post" enctype="multipart/form-data" id="product_form" style="padding:20px;">
+        {% csrf_token %}
+        <!--{{ product_form.as_p }}-->
+        <input type="hidden" name="csrfmiddlewaretoken" value="31JJKVvtyukl70UbTK5WaYTotVDbfBe6cVVrjrWBnOkd71TwKeXXRWt6ocuus7uB">
+        <div class="mb-3">
+            <label for="id_name" class="form-label text-style-form">Name</label>
+            <input type="text" class="form-control" required id="id_name" aria-describedby="emailHelp" maxlength="255" name="name">
+        </div>
+        <div class="mb-3">
+            <label for="id_price" class="form-label text-style-form">Price</label>
+            <input type="number" class="form-control" step="0.01" name="price" required id="id_price">
+        </div>
 
-    <button type="button" id="add_image_field">Добавить еще одно изображение</button>
+        <div id="images_container" style="margin:10px;">
+            <input type="file" name="product_images" accept="image/*" multiple>
+        </div>
 
-    <input type="submit" value="Добавить товар">
-</form>
+        <button class="btn btn-outline-dark" style="margin:10px;" type="button" id="add_image_field"><i class="fa-solid fa-plus"></i></button>
+
+        <input  class="btn btn-outline-success" type="submit" value="Добавить товар">
+    </form>
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -30,5 +42,31 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+
+<!--<input type="hidden" name="csrfmiddlewaretoken" value="31JJKVvtyukl70UbTK5WaYTotVDbfBe6cVVrjrWBnOkd71TwKeXXRWt6ocuus7uB">
+    <p>
+    <label for="id_name">Name:</label>
+    <input type="text" name="name" maxlength="255" required id="id_name">
+
+
+  </p>
+
+
+  <p>
+    <label for="id_price">Price:</label>
+    <input type="number" name="price" step="0.01" required id="id_price">
+
+
+
+
+  </p>
+
+    <div id="images_container">
+        <input type="file" name="product_images" accept="image/*" multiple>
+    </div>
+
+    <button type="button" id="add_image_field">Добавить еще одно изображение</button>
+
+    <input type="submit" value="Добавить товар">-->
 
 {% endblock %}
