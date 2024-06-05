@@ -20,3 +20,6 @@ def send_message_to_user(chat_id, message):
     except telebot.apihelper.ApiTelegramException as e:
         print(f"Ошибка при отправке сообщения: {e}")
 
+
+bot.polling()
+

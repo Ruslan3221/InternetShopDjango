@@ -31,3 +31,10 @@ def order(request):
     }
     return render(request, 'order.html', context)
 
+@admin_only
+
+def order_detail(request,pk_order):
+    order_det = get_object_or_404(Order,pk=pk_order)
+
+    return render(request,'order_detail.html',{"order_det":order_det})
+

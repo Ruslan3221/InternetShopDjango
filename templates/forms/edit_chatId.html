@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+{% block classheader %}header-my-two{% endblock %}
+{% block colorone %}black{% endblock %}
+{% block brand %}brand2{% endblock %}
+{% block colortwo %}black{% endblock %}
+{% block content %}
+<div style="margin-top:100px;">
+
+     <h1>Update Telegram Profile</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</div>
+
+{% endblock %}

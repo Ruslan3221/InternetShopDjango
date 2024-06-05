@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views, views_cart
 from . import views_auth
-from . import views_cabinet,views_users
+from . import views_cabinet,views_users,views_telegram,views_chatId
 
 
 app_name = 'shop'
@@ -21,6 +21,7 @@ urlpatterns = [
     path('users/',views_users.users,name='users'),
 
 
+
     path('admin_panel/',views.admin_panel,name='admin_panel'),
 
 
@@ -29,6 +30,9 @@ urlpatterns = [
     path('create_order_cart/<str:username>/', views_cabinet.create_order_card, name='create_order_cart'),
 
     path('order/', views_cart.order, name='order'),
+
+    path('order_detail/<int:pk_order>/', views_cart.order_detail, name='order_detail'),
+
 
 
     path('delete_cartItem/<str:username>/<int:cart_id>/', views_cabinet.delete_from_cabinet_cart, name='delete_cartItem'),
@@ -41,6 +45,7 @@ urlpatterns = [
 
     path('add_to_cart/<str:username>/<int:product_id>/', views_cart.add_to_cart, name='add_to_cart'),
 
+    path('edit_you_chatId/<str:username>',views_chatId.edit_you_chatId,name='edit_you_chatId'),
 
 
     path('signup/', views_auth.signup, name='signup'),

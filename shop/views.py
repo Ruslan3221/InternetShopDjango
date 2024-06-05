@@ -20,7 +20,26 @@ def detail(request, pk):
 
     product_images = ProductImage.objects.filter(product=product)
 
-    return render(request, 'detail.html', {'product': product, 'product_images': product_images})
+    count_img = []
+    count = 0
+
+    len_img = len(count_img)
+
+    for i in product_images:
+        count += 1
+        count_img.append(count)
+
+    len_img = len(count_img)
+
+    context = {
+        'product': product,
+        'product_images': product_images,
+        'count_img': count_img,
+        'len_img': len_img
+    }
+    print(count_img)
+
+    return render(request, 'detail.html', context)
 
 @admin_only
 def add_product(request):
@@ -63,7 +82,8 @@ def edit_product(request, product_id):
             product_form.save()
             image_formset.save()
 
-            send_message_to_user(954677875,f"Товар {product.name} обновился!")
+            #send_message_to_user(954677875,f"Товар {product.name} обновился!")
+            product.notify()
 
             return redirect('shop:main')
     else:
@@ -75,6 +95,7 @@ def edit_product(request, product_id):
         'image_formset': image_formset,
         "name":product.name,
         "price":product.price,
+        "description": product.description,
     }
     return render(request, 'product_edit.html', context)
 

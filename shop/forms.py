@@ -1,6 +1,6 @@
 from django import forms
 
-from shop.models import Product, ProductImage,User
+from shop.models import Product, ProductImage,User,Telegramid
 from multiupload.fields import MultiFileField
 
 
@@ -30,6 +30,10 @@ ProductImageFormSet = forms.inlineformset_factory(
 )
 
 
+class TelegramidForm(forms.ModelForm):
+    class Meta:
+        model = Telegramid
+        fields = ['chat_id']
 
 
 class SignUpFrom(UserCreationForm):

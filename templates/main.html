@@ -2,51 +2,61 @@
 {% load static %}
 {% block title %}Главная{% endblock %}
 {% block content %}
-    <!--Logo-->
-        <div style="margin-top:50px;">
-        <div class="container11">
-            <a href="https://project8930147.tilda.ws/">
-                <img src="{% static 'image/noBack.png' %}">
-            </a>
-        </div>
-        <div class="center">
-            <p class="text">Ваш стиль - наша сумка: непревзойденное качество и безупречный стиль,<br> создавайте историю моды вместе с нами!</p>
-        </div>
+
+
+
+
+    <div class="image-containerr">
+        <img src="{% static 'image/bgmain.jpeg' %}">
+        <div class="overlay-text">Ваш стиль - наша сумка:<br> непревзойденное качество и<br> безупречный стиль.<br> Cоздавайте историю моды вместе с нами!</div>
     </div>
-    <!--Items-->
+
+
     <div class="container" id="shop" style="margin-top: 50px;">
         <div class="row row-cols-1 row-cols-md-3 g-4">
 
             {% for item in products %}
             <div class="col">
-                <div class="card border-dark p-3 mb-5 bg-body rounded">
-                <div class="image-container">
-                    <img src="{{ item.images.first.product_images.url }}" alt="Product" class="image" id="animatedImage" height="400" width="400">
-                    <div class="overlay" style="margin-left:25px;" id="overlay">
-                        
+                <div>
+                    <div class="card image-container" style="width: 25rem;" onmouseover="showOverlay(this)" onmouseout="hideOverlay(this)">
+                        <img src="{{ item.images.first.product_images.url }}" class="card-img-top" alt="...">
+                        <div class="overlayy" style="margin-left:25px;display: none;" id="overlayy">
 
-                        <a type="button" class="btn btn-light" id="button1" href="{% url 'shop:detail' item.id %}">Детально</a>
-                        {% if user.is_authenticated %}
-                            <a type="button" class="btn btn-light mt-1"  id="button2" href="{% url 'shop:add_to_cart' user.username item.id %}">В корзину</a>
-                        {% endif %}
-                        
+                            <a type="button" class="btn btn-light" id="button1" href="{% url 'shop:detail' item.id %}">Детально</a>
+                            {% if user.is_authenticated %}
+                                <a type="button" class="btn btn-light mt-1"  id="button2" href="{% url 'shop:add_to_cart' user.username item.id %}">В корзину</a>
+                            {% endif %}
+                        </div>
                     </div>
-                    </div>
-                    <div style="text-align: center;" class="row">
-                        <hr>
+                    <div style="text-align: center; width:25rem;" class="row">
                         <div class="col" style="text-align:left;">
                             <p class="text-product-Vibes">{{ item.name }}</p>
-                            <p>Описание...</p>
+                            <p>{{ item.description|truncatechars:10 }}</p>
                         </div>
                         <div class="col" style="text-align:right;">
                             <p class="price">{{ item.price }}&#8376;</p>
                         </div>
 
                     </div>
+
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
-    
+
+
+
+<script>
+function showOverlay(element) {
+    var overlay = element.querySelector('.overlayy');
+    overlay.style.display = 'block';
+}
+
+function hideOverlay(element) {
+    var overlay = element.querySelector('.overlayy');
+    overlay.style.display = 'none';
+}
+</script>
 {% endblock %}
+{% block style %}"background-color: rgba(255, 255, 255, 0.5);"{% endblock %}

@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Заказ {{ order.id }}{% endblock %}
+{% block classheader %}header-my-two{% endblock %}
+{% block colorone %}black{% endblock %}
+{% block brand %}brand2{% endblock %}
+{% block colortwo %}black{% endblock %}
+{% block content %}
 
-</body>
-</html>
+<div style="margin-top:50px">
+{% for item in order_det.items.all %}
+
+<p>{{ item.product.name }}</p>
+<p>{{ item.product.name }}</p>
+<p>{{ item.product.name }}</p>
+
+
+{% endfor %}
+</div>
+
+
+{% endblock %}

@@ -1,8 +1,10 @@
 import decimal
 import os
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.contrib.auth.models import User
+from .bot import send_message_to_user
 # Create your models here.
 def upload_to(instance, filename):
     # Если instance не сохранен в базе данных или не существует, возвращаем дефолтный путь
@@ -28,6 +30,7 @@ def upload_to(instance, filename):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=20, decimal_places=2)
+    description = models.TextField(max_length=255,default='Описание')
 
     def __str__(self):
         return self.name
@@ -40,10 +43,20 @@ class Product(models.Model):
         Subscriber.objects.filter(user=user,product=self).delete()
 
     def notify(self):
-        subscribers = Subscriber.objects.filter(user=self)
+        subscribers = Subscriber.objects.filter(product = self)
+
+
 
         for sub in subscribers:
             Message.objects.create(title="!!!",text="Обновление!",user=sub.user)
+            try:
+                chatId = Telegramid.objects.get(user=sub.user)
+                if chatId:
+                    send_message_to_user(chatId.chat_id, "Товар из списка ваших подписок обновился!")
+            except ObjectDoesNotExist:
+                print(f"Telegram ID не найден для пользователя: {sub.user}")
+            except Exception as e:
+                print(f"Ошибка при уведомлении пользователя: {sub.user}, ошибка: {e}")
 
 
 class ProductImage(models.Model):
@@ -113,6 +126,16 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity}-{self.product.name}"
+
+
+class Telegramid(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    chat_id = models.CharField(max_length=100,unique=True)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.chat_id}'
+
+
 
 
 

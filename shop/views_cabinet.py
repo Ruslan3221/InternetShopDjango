@@ -2,7 +2,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from .decorator_permission import *
-from .models import Cart, CartItem, Product,Message,Subscriber,Order,OrderItem
+from django.http import JsonResponse
+from .models import Cart, CartItem, Product,Message,Subscriber,Order,OrderItem,Telegramid
 import logging
 
 logger = logging.getLogger(__name__)
@@ -92,6 +93,12 @@ class Cabinet:
         cart.create_order()
         return redirect(reverse("shop:cabinet", args=[username]))
 
+    def get_all_chat_id(self):
+        chat = Telegramid.objects.all()
+
+        listt = [{'chat': obj.chat_id} for obj in chat]
+
+        return JsonResponse(listt, safe=False)
 
 
 
@@ -112,4 +119,10 @@ def create_order_card(request,username):
     print("Create_order_card")
     cabinet = Cabinet(request,username)
     return cabinet.create_Order(username)
+
+
+def all_chat(request,username):
+    cabinet = Cabinet(request,username)
+    return cabinet.get_all_chat_id()
+
 

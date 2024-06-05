@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Заказы{% endblock %}
+{% block classheader %}header-my-two{% endblock %}
+{% block colorone %}black{% endblock %}
+{% block brand %}brand2{% endblock %}
+{% block colortwo %}black{% endblock %}
 {% block content %}
 
 
@@ -13,7 +17,7 @@
               <div class="card-body">
                 <h5 class="card-title" style="text-align:center;">Заказ от: {{ item.user }}</h5>
                   <div class="d-grid gap-2">
-                      <a class="btn btn-outline-dark" type="button" href="#"><i class="fa-solid fa-info"></i></a>
+                      <a class="btn btn-outline-dark" type="button" href="{% url 'shop:order_detail' item.id %}"><i class="fa-solid fa-info"></i></a>
                   </div>
               </div>
             </div>

@@ -1,7 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Кабинет{% endblock %}
+
+{% block classheader %}header-my-two{% endblock %}
+{% block colorone %}black{% endblock %}
+{% block brand %}brand2{% endblock %}
+{% block colortwo %}black{% endblock %}
+
+
 {% block content %}
 
+<style>
+    body {
+        overflow-x: hidden; /* Отключает горизонтальную прокрутку для всей страницы */
+    }
+</style>
+
+<div class="row">
+    <div class="col">
 <div class="card border-dark mb-3 shadow-lg" style="width: 100rem; margin-left: 8rem; height:50rem; margin-top: 5rem">
     <div class="card-header" style="text-align: center">{{ user.username }}</div>
     <div class="card-body text-dark">
@@ -19,15 +34,15 @@
           <tbody>
             {% for mess in message %}
                 <tr>
-                    
+
                   <th scope="row">#</th>
                   <td>{{ mess.title }}</td>
                   <td>{{ mess.text|truncatechars:10 }}</td>
-                  <td><i class="fa-solid fa-check"></i></td>  
+                  <td><i class="fa-solid fa-check"></i></td>
 
                 </tr>
-            {% endfor %}  
-            
+            {% endfor %}
+
           </tbody>
         </table>
     </div>
@@ -36,7 +51,7 @@
     <div class="card-header" style="text-align: center">Подписки</div>
     <div class="card-body text-dark">
     <h5 class="card-title"></h5>
-    
+
         <table class="table">
           <thead>
             <tr>
@@ -49,15 +64,15 @@
           <tbody>
             {% for sub in subscribe %}
                 <tr>
-                    
+
                   <th scope="row">#</th>
                   <td>{{ sub.product.name }}</td>
                   <td>{{ sub.product.price }}</td>
                   <td><a type="button" class="btn btn-danger" href="{% url 'shop:unsubscribe_product' sub.product.id user.username %}"><i class="fa-solid fa-minus"></i></a></td>
 
                 </tr>
-            {% endfor %}  
-            
+            {% endfor %}
+
           </tbody>
         </table>
     <p class="card-text"></p>
@@ -79,20 +94,27 @@
           <tbody>
             {% for item in products_in_cart %}
                 <tr>
-                    
+
                   <th scope="row">{{ item.number }}</th>
                   <td>{{ item.name }}</td>
                   <td>{{ item.quantity }}</td>
                   <td>{{ item.total_price }}</td>
-                  <td><a type="button" class="btn btn-danger" href="{% url 'shop:delete_cartItem' username=user.username cart_id=item.id_cart %}"><i class="fa-solid fa-minus"></i></a></td>  
+                  <td><a type="button" class="btn btn-danger" href="{% url 'shop:delete_cartItem' username=user.username cart_id=item.id_cart %}"><i class="fa-solid fa-minus"></i></a></td>
                 </tr>
             {% endfor %}
             <a href = '{% url "shop:create_order_cart" user.username %}' type="button" class="btn btn-dark">Заказать</a>
-            
+
           </tbody>
         </table>
     </div>
 </div>
-    
-    
+</div>
+    <div class="col" style="margin-top:80px;">
+        <a type="button" href="{% url 'shop:edit_you_chatId' user.username %}" class="btn" style="position:fixed"><i class="fa-brands fa-telegram" style="font-size:50px"></i></a>
+    </div>
+    </div>
+
+
+
+
 {% endblock %}

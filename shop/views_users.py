@@ -10,7 +10,6 @@ def users(request):
     users = User.objects.all()
     useri = []
     you = request.user.username
-    print(you,"-----you-------")
 
     id = 0
 
@@ -31,7 +30,5 @@ def users(request):
         "you": you
 
     }
-
-    print(f"{context}------")
 
     return render(request, './users.html', context)
