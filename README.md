@@ -1,7 +1,6 @@
 <h1 style='text-align:center;'>Название проекта:</h1>
 <br>
-<h1>InternetShopDjango</h1>
-<img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
+<h1>InternetShopDjango<img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
 <hr>
 <br>
 <h2 style='text-align:center;'>Паттерны</h2>
