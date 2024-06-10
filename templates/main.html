@@ -30,7 +30,7 @@
                     </div>
                     <div style="text-align: center; width:25rem;" class="row">
                         <div class="col" style="text-align:left;">
-                            <p class="text-product-Vibes">{{ item.name }}</p>
+                            <p class="text-product-Vibes">{{ item.name|truncatechars:10 }}</p>
                             <p>{{ item.description|truncatechars:10 }}</p>
                         </div>
                         <div class="col" style="text-align:right;">

@@ -6,15 +6,42 @@
 {% block brand %}brand2{% endblock %}
 {% block colortwo %}black{% endblock %}
 {% block content %}
-<div style="margin-top:100px;">
 
-     <h1>Update Telegram Profile</h1>
+<h1 class="text-h" style="text-align:center;margin-top:30px;">Telegram Profile</h1>
+<div class="container">
+    <div style="margin-top:100px;">
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+
+        <!--id_chat_id-->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="id_chat_id" class="form-label">Chat Id</label>
+            <input type="text" name="chat_id" class="form-control" id="id_chat_id" value="{{ id }}" required="" aria-invalid="true">
+
+            <button type="submit" class="btn btn-primary mt-3">Save</button>
+        </form>
+    </div>`
+</div>
+<button class="btn" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" style="float:right;"><i class="fa-solid fa-question" style="font-size:40px;"></i></button>
+
+
+<!--modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Где узнать свой Телеграм Id?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Напишите нашему
+          <a href="https://web.telegram.org/k/#@AfroditaStore_bot">телеграмм боту</a> /start
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

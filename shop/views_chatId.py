@@ -22,7 +22,7 @@ def edit_you_chatId(request,username):
 
     context = {
         'form':form,
-        'if': chatId.chat_id
+        'id': chatId.chat_id
     }
     return render(request,"forms/edit_chatId.html",context)
 

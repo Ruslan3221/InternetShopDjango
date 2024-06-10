@@ -9,11 +9,14 @@ urlpatterns = [
     path('', views.main, name='main'),
     path('detail/<int:pk>/', views.detail, name='detail'),
 
+    #Успешный заказ
+
+    path('secsseful/',views_cart.secsseful, name='secsseful'),
+
 
     path('add_product/', views.add_product, name='add_product'),
 
     path('delete_product/<int:product_id>/',views.delete_product, name='delete_product'),
-
 
     path('edit_product/<int:product_id>/',views.edit_product,name='edit_product'),
 
@@ -25,6 +28,7 @@ urlpatterns = [
     path('admin_panel/',views.admin_panel,name='admin_panel'),
 
 
+
     path('cabinet/<str:username>/', views_cabinet.cabinet_views, name='cabinet'),
 
     path('create_order_cart/<str:username>/', views_cabinet.create_order_card, name='create_order_cart'),
@@ -32,6 +36,8 @@ urlpatterns = [
     path('order/', views_cart.order, name='order'),
 
     path('order_detail/<int:pk_order>/', views_cart.order_detail, name='order_detail'),
+
+    path('order_delete/<int:pk_order>/', views_cart.order_delete, name='order_delete'),
 
 
 

@@ -87,11 +87,14 @@ class Cabinet:
 
     def create_Order(self, username):
         logger.debug(f"Creating order for username: {username}")
-        print("ok")
         user = get_object_or_404(User, username=username)
         cart = get_object_or_404(Cart, user=user)
-        cart.create_order()
-        return redirect(reverse("shop:cabinet", args=[username]))
+        if cart.has_items():
+            cart.create_order()
+            return redirect("shop:secsseful")
+        else:
+            print('Cart is empty, no order created.')
+            return redirect(reverse("shop:cabinet", args=[username]))
 
     def get_all_chat_id(self):
         chat = Telegramid.objects.all()

@@ -3,6 +3,8 @@
 import os
 import sys
 
+import threading
+
 
 def main():
     """Run administrative tasks."""
@@ -15,6 +17,13 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+
+    #Телеграмм Бот
+    from shop.bot import main as bot_main
+
+    bot_thread = threading.Thread(target= bot_main)
+    bot_thread.start()
+    ####
     execute_from_command_line(sys.argv)
 
 

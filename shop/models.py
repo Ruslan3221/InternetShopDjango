@@ -30,7 +30,7 @@ def upload_to(instance, filename):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=20, decimal_places=2)
-    description = models.TextField(max_length=255,default='Описание')
+    description = models.TextField(max_length=1000,default='Описание')
 
     def __str__(self):
         return self.name
@@ -79,6 +79,9 @@ class Cart(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    #Проверка наличие чего либо в корзине
+    def has_items(self):
+        return self.items.exists()
     def create_order(self):
         order = Order.objects.create(user=self.user, total_price= 0.00)
         total_price = decimal.Decimal(0.00)
@@ -89,12 +92,10 @@ class Cart(models.Model):
                 quantity=item.quantity,
                 price=item.product.price
             )
-            print("сдесь ошибка create_order",type(order_item.quantity),type(order_item.price))
 
             price = decimal.Decimal(order_item.price)
             quantity = decimal.Decimal(order_item.quantity)
 
-            print(type(total_price))
 
             total_price += price*quantity
 

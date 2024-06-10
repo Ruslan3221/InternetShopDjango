@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Cart, CartItem, Product, Order
-#TODO:Сделать форму заполнения при кидание товара в
+#TODO:Сделать форму заполнения при кидание товара в корзину
 
 @auth_and_user
 def add_to_cart(request, username, product_id):
@@ -38,3 +38,15 @@ def order_detail(request,pk_order):
 
     return render(request,'order_detail.html',{"order_det":order_det})
 
+
+@admin_only
+def order_delete(request,pk_order):
+    order = get_object_or_404(Order,pk=pk_order)
+    order.delete()
+    return redirect('shop:order')
+
+def secsseful(request):
+    context = {
+        '1':1
+    }
+    return render(request,'secsseful.html',context)

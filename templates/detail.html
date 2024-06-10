@@ -92,6 +92,9 @@
         background-color: #ECD06C
         color: white;
     }
+    .product-description {
+        white-space: pre-line; /* Сохраняет пробелы и переносы строк */
+    }
 </style>
 
 
@@ -135,16 +138,36 @@
             <h2 class="text-detail-name">{{ product.name }}</h2>
             <h3 class="price">{{ product.price }}&#8376;</h3>
             <p style="color:gray;margin-top:30px">Описание:</p>
-            <p>{{ product.description }}</p>
-            {% if user.username %}
-            <a class="btn btn-primary m-3" href="{% url 'shop:add_to_cart' user.username product.id %}" type="button">В корзину</a>
-            <a class="btn m-3" href='{% url "shop:subscribe_product" product.id user.username %}' type="button"><i class="fa-regular fa-heart" style="font-size:25px"></i></a>
-            {% endif %}
-            <br>
-            {% if user.is_superuser %}
-            <a class="btn btn-primary m-3" href='{% url "shop:edit_product" product.id%}' type="button">Редактировать</a>
-            <a class="btn m-3" href='{% url "shop:delete_product" product.id%}' type="button"><i class="fa-solid fa-trash" style="font-size:25px;color:#FA7C71;"></i></a>
-            {% endif %}
+            <p style="text-align:left" id="product-description">{{ product.description }}</p>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    var descriptionElement = document.getElementById("product-description");
+                    var description = descriptionElement.innerText;
+                    var formattedDescription = "";
+                    var maxLength = 46; // Разделяем каждые 50 символов
+
+                    for (var i = 0; i < description.length; i += maxLength) {
+                        formattedDescription += description.substr(i, maxLength) + "<br>";
+                    }
+
+                    // Удаляем последний <br>
+                    formattedDescription = formattedDescription.slice(0, -4);
+
+                    // Обновляем содержимое элемента с новым описанием
+                    descriptionElement.innerHTML = formattedDescription;
+                });
+            </script>
+            <div>
+                {% if user.username %}
+                <a class="btn btn-primary m-3" href="{% url 'shop:add_to_cart' user.username product.id %}" type="button">В корзину</a>
+                <a class="btn m-3" href='{% url "shop:subscribe_product" product.id user.username %}' type="button"><i class="fa-regular fa-heart" style="font-size:25px"></i></a>
+                {% endif %}
+                <br style="padding:0px;margin:0px">
+                {% if user.is_superuser %}
+                <a class="btn btn-primary m-3" href='{% url "shop:edit_product" product.id%}' type="button">Редактировать</a>
+                <a class="btn m-3" href='{% url "shop:delete_product" product.id%}' type="button"><i class="fa-solid fa-trash" style="font-size:25px;color:#FA7C71;"></i></a>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
